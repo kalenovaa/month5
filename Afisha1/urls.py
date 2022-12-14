@@ -14,27 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from movieapp import views
+from django.urls import path, include
+from .yasg import urlpatterns as swagger
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-
-    path('api/v1/directors/', views.directors),
-    path('api/v1/directors/<int:id>/', views.director_item),
-
-
-
-    path('api/v1/movies/', views.movies),
-    path('api/v1/movies/<int:id>/', views.movie_item),
-
-
-    path('api/v1/revies/', views.reviews),
-    path('api/v1/revies/<int:id>/', views.review_item),
-
-
-    path('api/v1/authorization/', user_views.authorization),
-    path('api/v1/registration/', user_views.registration),
-
+    path('api/v1/', include('movie_app.urls')),
+    path('api/v1/users/', include('users.urls')),
 ]
+
+urlpatterns += swagger
